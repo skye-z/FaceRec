@@ -4,6 +4,7 @@
 #include <dlib/clustering.h>
 #include <dlib/string.h>
 #include <dlib/image_io.h>
+#include <dlib/image_transforms.h>
 #include <dlib/image_processing.h>
 #include <dlib/image_processing/frontal_face_detector.h>
 #include "cpp-httplib/httplib.h"
@@ -15,6 +16,26 @@ using json = nlohmann::json;
 using namespace httplib;
 using namespace dlib;
 using namespace std;
+
+template <typename image_type>
+void preprocess_face_image(image_type& img) {
+    // 调整图像大小
+    long original_width = img.nc();
+    long original_height = img.nr();
+    if (original_width > 360) {
+        double scale_factor = 360.0 / original_width;
+        long new_width = static_cast<long>(original_width * scale_factor);
+        long new_height = static_cast<long>(original_height * scale_factor);
+
+        array2d<rgb_pixel> resized_img(new_height, new_width);
+        resize_image(img, resized_img);
+        assign_image(img, resized_img);
+    }
+    // 转灰度图
+    matrix<unsigned char> gray_img;
+    assign_image(gray_img, img);
+    assign_image(img, gray_img);
+}
 
 class HttpServer
 {
@@ -72,6 +93,7 @@ private:
             // 从临时文件加载图像
             array2d<rgb_pixel> img;
             load_image(img, temp_name);
+            preprocess_face_image(img);
             // 定义人脸图像矩阵向量
             std::vector<matrix<rgb_pixel>> faces;
             // 使用人脸检测器返回检测到每张人脸

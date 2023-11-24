@@ -10,6 +10,12 @@ git clone https://github.com/yhirose/cpp-httplib.git
 g++ -std=c++14 -I/usr/local/include -L/usr/local/lib -framework Accelerate -o face_rec main.cpp -ldlib -lpthread -lsqlite3
 ```
 
+上述命令适合开发环境构建, 如果是生产环境可以使用cmake
+
+```shell
+mkdir build ; cd build ; cmake .. ; make
+```
+
 ## 运行
 
 首先你需要进入`model`目录, 根据提示下载模型
