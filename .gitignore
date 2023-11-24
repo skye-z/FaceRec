@@ -1,0 +1,6 @@
+.vscode/
+cpp-httplib/
+model/*
+!model/README.md
+# 产物
+face_rec
