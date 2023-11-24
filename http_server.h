@@ -22,12 +22,12 @@ public:
         // 初始化人脸检测器
         detector = get_frontal_face_detector();
         // 初始化人脸关键点预测器
-        deserialize("predictor.dat") >> sp;
+        deserialize("model/predictor.dat") >> sp;
         // 初始化人脸识别模型
-        deserialize("recognition.dat") >> net;
+        deserialize("model/recognition.dat") >> net;
 
         // 设置HTTP路由
-        server.Post("/detect_face", [&](const Request &req, Response &res) {
+        server.Post("/rec", [&](const Request &req, Response &res) {
             handleDetectFace(req, res);
         });
     }
