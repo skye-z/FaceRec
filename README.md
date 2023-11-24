@@ -3,7 +3,7 @@
 ## 编译构建
 ```shell
 # 拉取 FaceRec 项目
-git clone https://github.com/skye-z/face-rec
+git clone https://github.com/skye-z/FaceRec
 # 拉取 httplib
 git clone https://github.com/yhirose/cpp-httplib.git
 # 构建
