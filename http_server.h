@@ -68,7 +68,7 @@ public:
     void startServer()
     {
         // 启动 HTTP 服务器
-        server.listen("localhost", 8080);
+        server.listen("0.0.0.0", 8080);
     }
 
 private:
