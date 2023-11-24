@@ -7,7 +7,7 @@ git clone https://github.com/skye-z/FaceRec
 # 拉取 httplib
 git clone https://github.com/yhirose/cpp-httplib.git
 # 构建
-g++ -std=c++14 -I/usr/local/include -L/usr/local/lib -framework Accelerate -o face_rec main.cpp -ldlib -lpthread
+g++ -std=c++14 -I/usr/local/include -L/usr/local/lib -framework Accelerate -o face_rec main.cpp -ldlib -lpthread -lsqlite3
 ```
 
 ## 运行
