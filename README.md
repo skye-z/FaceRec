@@ -17,7 +17,10 @@ g++ -std=c++14 -I/usr/local/include -L/usr/local/lib -framework Accelerate -o fa
 上述命令适合开发环境构建, 如果是生产环境可以使用cmake
 
 ```shell
-mkdir build ; cd build ; cmake .. ; make
+mkdir build
+cd build
+cmake ..
+make
 ```
 
 ## 运行

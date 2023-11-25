@@ -1,3 +1,7 @@
+# Copyright (C) 2023 Skye Zhang (skai-zhang@hotmail.com)
+# Created: Skye Zhang 2023-11-24
+# License: AGPL-3.0
+
 cmake_minimum_required(VERSION 3.10)
 
 project(face_rec)

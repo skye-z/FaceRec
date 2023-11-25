@@ -1,9 +1,6 @@
-/*
- *  Filename: face_data.h
- *  Created by: Skye Zhang
- *  Created on: 2023-11-24
- *  Copyright (c) 2023 Skye Zhang. All rights reserved.
- */
+// Copyright (C) 2023 Skye Zhang (skai-zhang@hotmail.com)
+// Created: Skye Zhang 2023-11-24
+// License: AGPL-3.0
 #pragma once
 
 #include <cstdio>
