@@ -1,5 +1,6 @@
 .vscode/
 cpp-httplib/
+nlohmann/
 build/
 model/*
 !model/README.md
