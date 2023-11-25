@@ -26,7 +26,7 @@ cmake ..
 make
 ```
 
-## 运行
+## 手动运行
 
 首先你需要进入`model`目录, 根据提示下载模型
 
@@ -37,13 +37,13 @@ make
 nohup ./face_rec > output.log 2>&1 &
 ```
 
-## 部署
+## 生产部署
 
 编译构建后, 将产物上传至服务器, 然后在产物所在目录创建`model`目录, 将模型上传, 最后运行服务即可
 
 当然也可以直接使用 Docker: `docker run -d -p 12680:8080 --name face-rec skyezhang/face-rec:1.0.0`
 
-## 接口
+## HTTP接口
 
 * /add 添加人脸数据
     * url参数: uid 用户编号
