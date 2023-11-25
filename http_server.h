@@ -76,9 +76,9 @@ public:
 
     void startServer()
     {
+        cout << "[HS] Http server started" << endl;
         // 启动 HTTP 服务器
         server.listen("0.0.0.0", 8080);
-        cout << "[HS] Http server started" << endl;
     }
 
 private:

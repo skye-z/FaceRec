@@ -41,6 +41,8 @@ nohup ./face_rec > output.log 2>&1 &
 
 编译构建后, 将产物上传至服务器, 然后在产物所在目录创建`model`目录, 将模型上传, 最后运行服务即可
 
+当然也可以直接使用 Docker: `docker run -d -p 12680:8080 --name face-rec skyezhang/face-rec:1.0.0`
+
 ## 接口
 
 * /add 添加人脸数据
