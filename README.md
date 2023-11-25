@@ -41,3 +41,13 @@ nohup ./face_rec > output.log 2>&1 &
 ## 部署
 
 编译构建后, 将产物上传至服务器, 然后在产物所在目录创建`model`目录, 将模型上传, 最后运行服务即可
+
+## 接口
+
+* /add 添加人脸数据
+    * url参数: uid 用户编号
+    * form数据: file 人脸图片
+* /remove 删除人脸数据
+    * url参数: uid 用户编号
+* /match 比对人脸数据
+    * form数据: file 人脸图片
