@@ -68,6 +68,8 @@ public:
         // 设置HTTP路由
         server.Post("/add", [&](const Request &req, Response &res)
                     { handleAddFace(req, res); });
+        server.Post("/remove", [&](const Request &req, Response &res)
+                    { handleRemoveFace(req, res); });
         server.Post("/match", [&](const Request &req, Response &res)
                     { handleMatchFace(req, res); });
     }
@@ -180,6 +182,37 @@ private:
             {
                 result_json["state"] = false;
                 result_json["result"] = "未上传文件或未提供uid";
+
+                res.status = 400;
+                res.set_content(result_json.dump(), "application/json");
+            }
+        }
+        catch (const std::exception &e)
+        {
+            result_json["state"] = false;
+            result_json["result"] = "服务出错";
+
+            res.status = 500;
+            res.set_content(result_json.dump(), "application/json");
+        }
+    }
+
+    // 删除人脸数据
+    void handleRemoveFace(const Request &req, Response &res){
+        json result_json;
+        try
+        {
+            // 检查是否提供uid
+            if (req.has_param("uid"))
+            {
+                std::string uid = req.get_param_value("uid");
+                    result_json["state"] = data.remove(uid);
+                res.set_content(result_json.dump(), "application/json");
+            }
+            else
+            {
+                result_json["state"] = false;
+                result_json["result"] = "未提供uid";
 
                 res.status = 400;
                 res.set_content(result_json.dump(), "application/json");

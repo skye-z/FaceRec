@@ -106,6 +106,12 @@ public:
         return true;
     }
 
+    // 删除人脸数据
+    bool remove(const std::string &uid){
+        std::string sql = "DELETE FROM face WHERE uid = '" + uid + "';";
+        return executeSQL(sql.c_str());
+    }
+
     // 获取全部列表
     std::vector<FaceObject> all_list()
     {
