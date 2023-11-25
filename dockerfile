@@ -3,7 +3,8 @@ FROM alpine:latest
 WORKDIR /app
 
 # 安装依赖库和构建工具
-RUN apk update && \
+RUN set -eux && sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
+    apk update && \
     apk add --no-cache build-base cmake git sqlite-dev
 
 # 克隆dlib源代码并构建

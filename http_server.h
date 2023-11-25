@@ -41,7 +41,7 @@ void preprocess_face_image(image_type &img)
     matrix<unsigned char> gray_img;
     assign_image(gray_img, img);
     assign_image(img, gray_img);
-    dlib::save_jpeg(img, "preview.jpg");
+    dlib::save_jpeg(img, "data/preview.jpg");
 }
 
 class HttpServer
@@ -162,6 +162,10 @@ private:
             {
                 const auto &file = req.get_file_value("file");
                 std::string uid = req.get_param_value("uid");
+                if(data.exists(uid)){
+                    result_json["state"] = false;
+                    result_json["result"] = "UID已入库,请删除后再试";
+                }else{
                 cout << "[AF] Get face descriptors" << endl;
                 // 获取文件数据
                 std::string image_data(file.content.data(), file.content.length());
@@ -175,6 +179,7 @@ private:
                 else
                 {
                     result_json["state"] = data.save(uid, face_descriptors[0]);
+                }
                 }
                 res.set_content(result_json.dump(), "application/json");
             }

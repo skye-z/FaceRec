@@ -1,11 +1,11 @@
 .vscode/
 cpp-httplib/
 build/
+data/
 nlohmann/*
 !nlohmann/README.md
 model/*
 !model/README.md
 # 产物
 face_rec
-data/face.store
 preview.jpg

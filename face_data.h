@@ -108,9 +108,52 @@ public:
 
     // 删除人脸数据
     bool remove(const std::string &uid){
+        if (!db)
+        {
+            cout << "[DB] Database not started" << endl;
+            return false;
+        }
         std::string sql = "DELETE FROM face WHERE uid = '" + uid + "';";
         int state = sqlite3_exec(db, sql.c_str(), 0, 0, 0);
         return state == SQLITE_OK;
+    }
+ 
+    // 查询uid是否存在
+    bool exists(const std::string &uid)
+    {
+        if (!db)
+        {
+            cout << "[DB] Database not started" << endl;
+            return false;
+        }
+
+        const char *select_sql = "SELECT COUNT(*) FROM \"face\" WHERE \"uid\" = ?;";
+        sqlite3_stmt *stmt;
+        int state = sqlite3_prepare_v2(db, select_sql, -1, &stmt, 0);
+
+        if (state != SQLITE_OK)
+        {
+            return false;
+        }
+
+        // 绑定 uid 参数
+        state = sqlite3_bind_text(stmt, 1, uid.c_str(), -1, SQLITE_TRANSIENT);
+        if (state != SQLITE_OK)
+        {
+            sqlite3_finalize(stmt);
+            return false;
+        }
+
+        // 执行查询
+        state = sqlite3_step(stmt);
+        if (state == SQLITE_ROW)
+        {
+            int count = sqlite3_column_int(stmt, 0);
+            return count > 0;
+        }
+        sqlite3_finalize(stmt);
+
+        return false;
     }
 
     // 获取全部列表
