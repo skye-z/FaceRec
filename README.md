@@ -1,5 +1,9 @@
 # Face Recognition Service
 
+[![](https://img.shields.io/badge/CPP-14+-%2300ADD8?style=flat&logo=cpp)](https://cplusplus.com/)
+[![](https://img.shields.io/badge/Version-1.0.0-green)](control)
+[![CodeQL](https://github.com/skye-z/FaceRec/workflows/CodeQL/badge.svg)](https://github.com/skye-z/FaceRec/security/code-scanning)
+
 ## 编译构建
 ```shell
 # 拉取 FaceRec 项目

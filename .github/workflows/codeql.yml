@@ -41,7 +41,10 @@ jobs:
       with:
         languages: ${{ matrix.language }}
     - run: |
-        git clone -b 'v19.24.2' --single-branch https://mirror.ghproxy.com/https://github.com/davisking/dlib.git && \
+        apt install libavdevice-dev libavfilter-dev libavformat-dev && \
+        apt install libavcodec-dev libswresample-dev libswscale-dev && \
+        apt install libavutil-dev && \
+        git clone -b 'v19.24.2' --single-branch https://github.com/davisking/dlib.git && \
         cd dlib && \
         mkdir build && \
         cd build && \
