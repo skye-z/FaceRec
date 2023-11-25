@@ -41,9 +41,9 @@ jobs:
       with:
         languages: ${{ matrix.language }}
     - run: |
-        apt install libavdevice-dev libavfilter-dev libavformat-dev && \
-        apt install libavcodec-dev libswresample-dev libswscale-dev && \
-        apt install libavutil-dev && \
+        sudo apt install libavdevice-dev libavfilter-dev libavformat-dev && \
+        sudo apt install libavcodec-dev libswresample-dev libswscale-dev && \
+        sudo apt install libavutil-dev && \
         git clone -b 'v19.24.2' --single-branch https://github.com/davisking/dlib.git && \
         cd dlib && \
         mkdir build && \
