@@ -2,6 +2,7 @@
 
 #include <cstdio>
 #include <dlib/clustering.h>
+#include <dlib/matrix.h>
 #include <dlib/string.h>
 #include <dlib/image_io.h>
 #include <dlib/image_transforms.h>
@@ -18,11 +19,13 @@ using namespace dlib;
 using namespace std;
 
 template <typename image_type>
-void preprocess_face_image(image_type& img) {
+void preprocess_face_image(image_type &img)
+{
     // 调整图像大小
     long original_width = img.nc();
     long original_height = img.nr();
-    if (original_width > 360) {
+    if (original_width > 360)
+    {
         double scale_factor = 360.0 / original_width;
         long new_width = static_cast<long>(original_width * scale_factor);
         long new_height = static_cast<long>(original_height * scale_factor);
@@ -35,6 +38,7 @@ void preprocess_face_image(image_type& img) {
     matrix<unsigned char> gray_img;
     assign_image(gray_img, img);
     assign_image(img, gray_img);
+    dlib::save_jpeg(img, "preview.jpg");
 }
 
 class HttpServer
@@ -69,6 +73,7 @@ public:
     {
         // 启动 HTTP 服务器
         server.listen("0.0.0.0", 8080);
+        cout << "[HS] Http server started" << endl;
     }
 
 private:
@@ -80,6 +85,7 @@ private:
         temp_filename_stream << "temp_" << std::put_time(std::localtime(&timestamp), "%Y%m%d%H%M%S") << ".jpg";
         return temp_filename_stream.str();
     }
+
     // 获取人脸特征
     std::vector<matrix<float, 0, 1>> getFaceDescriptors(std::string image_data)
     {
@@ -126,6 +132,20 @@ private:
         }
     }
 
+    // 计算欧式距离
+    float euclideanDistance(const matrix<float, 0, 1> &vec1, const matrix<float, 0, 1> &vec2)
+    {
+        // 检查两个向量的维度是否相同
+        if (vec1.size() != vec2.size())
+        {
+            return 1.0f;
+        }
+        // 计算欧氏距离
+        matrix<float, 0, 1> diff = vec1 - vec2;
+        float distance = length(diff);
+        return distance;
+    }
+
     // 添加人脸数据
     void handleAddFace(const Request &req, Response &res)
     {
@@ -137,6 +157,7 @@ private:
             {
                 const auto &file = req.get_file_value("file");
                 std::string uid = req.get_param_value("uid");
+                cout << "[AF] Get face descriptors" << endl;
                 // 获取文件数据
                 std::string image_data(file.content.data(), file.content.length());
                 // 提取人脸特征
@@ -181,13 +202,15 @@ private:
             if (req.has_file("file"))
             {
                 const auto &file = req.get_file_value("file");
+                cout << "[MF] Get face descriptors" << endl;
                 // 获取文件数据
                 std::string image_data(file.content.data(), file.content.length());
                 // 提取人脸特征
-                std::vector<matrix<float, 0, 1>> face_descriptors = getFaceDescriptors(image_data);
+                const std::vector<matrix<float, 0, 1>> face_descriptors = getFaceDescriptors(image_data);
                 if (face_descriptors.size() == 0)
                 {
                     result_json["state"] = false;
+                    result_json["face"] = face_descriptors.size();
                     result_json["result"] = "图中未检测到人脸";
                 }
                 else
@@ -197,7 +220,7 @@ private:
                     if (face_list.empty())
                     {
                         result_json["state"] = false;
-                        result_json["result"] = "数据库中无人脸数据";
+                        result_json["result"] = "服务尚未初始化";
                     }
                     else
                     {
@@ -207,8 +230,9 @@ private:
 
                         for (const FaceData::FaceObject &obj : face_list)
                         {
-                            float distance = length(obj.face - face_descriptors[0]);
-                            if (distance < min_distance)
+                            float distance = euclideanDistance(obj.face, face_descriptors[0]);
+                            cout << "[MF] Comparison deviation #" << obj.uid << " " << distance << endl;
+                            if (distance < min_distance && distance <= threshold)
                             {
                                 min_distance = distance;
                                 uid = obj.uid;
@@ -218,11 +242,16 @@ private:
                         {
                             result_json["state"] = false;
                             result_json["result"] = "无匹配";
+                            cout << "[MF] No match\n"
+                                 << endl;
                         }
                         else
                         {
                             result_json["state"] = true;
+                            result_json["deviation"] = min_distance;
                             result_json["result"] = uid;
+                            cout << "[MF] Match UID-" << uid << "\n"
+                                 << endl;
                         }
                     }
                 }
@@ -253,4 +282,5 @@ private:
     frontal_face_detector detector;
     shape_predictor sp;
     anet_type net;
+    float threshold = 0.3;
 };

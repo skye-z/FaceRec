@@ -134,10 +134,11 @@ public:
             dlib::matrix<float, 0, 1> loaded_face_descriptor;
             std::istringstream iss(face);
             float value;
+            int num = 0;
+            obj.face.set_size(128);
             while (iss >> value)
             {
-                obj.face.set_size(obj.face.size() + 1);
-                obj.face(obj.face.size() - 1) = value;
+                obj.face(num++) = value;
                 if (iss.peek() == ',')
                 {
                     iss.ignore();
