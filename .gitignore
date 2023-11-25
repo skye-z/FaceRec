@@ -1,7 +1,8 @@
 .vscode/
 cpp-httplib/
-nlohmann/
 build/
+nlohmann/*
+!nlohmann/README.md
 model/*
 !model/README.md
 # 产物

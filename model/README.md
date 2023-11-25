@@ -16,5 +16,6 @@ FaceRec
         recognition.dat
     network_model.h
     http_server.h
+    face_data.h
     main.cpp
 ```

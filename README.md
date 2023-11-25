@@ -7,7 +7,6 @@ git clone https://github.com/skye-z/FaceRec
 # 进入 FaceRec 项目
 cd FaceRec
 # 拉取 json 库
-mkdir nlohmann
 curl -o nlohmann/json.hpp https://raw.githubusercontent.com/nlohmann/json/develop/single_include/nlohmann/json.hpp
 # 拉取 httplib
 git clone https://github.com/yhirose/cpp-httplib.git
