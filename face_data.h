@@ -19,7 +19,7 @@ class FaceData
 public:
     FaceData() : db(nullptr)
     {
-        if (sqlite3_open("face.store", &db) != SQLITE_OK)
+        if (sqlite3_open("data/face.store", &db) != SQLITE_OK)
         {
             cout << "[DB] Database startup failed" << endl;
             db = nullptr;

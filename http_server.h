@@ -284,7 +284,6 @@ private:
                         else
                         {
                             result_json["state"] = true;
-                            result_json["deviation"] = min_distance;
                             result_json["result"] = uid;
                             cout << "[MF] Match UID-" << uid << "\n"
                                  << endl;

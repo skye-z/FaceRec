@@ -31,6 +31,7 @@ RUN cd build && \
 RUN mv /app/build/build/face_rec /app/face_rec && \
     mv /app/build/model /app/model && \
     cd /app && \
+    mkdir data && \
     rm -rf /app/build
 
 # 暴露服务端口

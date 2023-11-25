@@ -7,5 +7,5 @@ model/*
 !model/README.md
 # 产物
 face_rec
-face.store
+data/face.store
 preview.jpg
