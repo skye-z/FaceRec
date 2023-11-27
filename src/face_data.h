@@ -6,7 +6,7 @@
 #include <cstdio>
 #include <string>
 #include <sqlite3.h>
-#include "nlohmann/json.hpp"
+#include "../nlohmann/json.hpp"
 #include <dlib/image_processing.h>
 
 using json = nlohmann::json;
