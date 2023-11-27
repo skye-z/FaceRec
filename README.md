@@ -3,6 +3,8 @@
 [![](https://img.shields.io/badge/CPP-14+-%2300ADD8?style=flat&logo=cpp)](https://cplusplus.com/)
 [![](https://img.shields.io/badge/Version-1.0.0-green)](control)
 
+这是一个完整的人脸识别的HTTP API服务, 自带SQLite存储, 提供人脸数据录入和全库人脸自定义阈值匹配服务
+
 ## 编译构建
 ```shell
 # 拉取 FaceRec 项目
@@ -54,5 +56,10 @@ nohup ./face_rec > output.log 2>&1 &
     * url参数: uid 用户编号
 * /exists 查询是否已录入人脸
     * url参数: uid 用户编号
-* /match 比对人脸数据
+* /match 匹配人脸
+    * url参数: valve 阈值(默认0.3)
     * form数据: file 人脸图片
+
+## 许可证
+
+[GNU Affero General Public License v3.0](LICENSE)
