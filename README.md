@@ -45,10 +45,14 @@ nohup ./face_rec > output.log 2>&1 &
 
 ## HTTP接口
 
+> 本服务所有接口均为POST请求
+
 * /add 添加人脸数据
     * url参数: uid 用户编号
     * form数据: file 人脸图片
 * /remove 删除人脸数据
+    * url参数: uid 用户编号
+* /exists 查询是否已录入人脸
     * url参数: uid 用户编号
 * /match 比对人脸数据
     * form数据: file 人脸图片

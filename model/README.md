@@ -14,8 +14,10 @@ FaceRec
     model/
         predictor.dat
         recognition.dat
-    network_model.h
-    http_server.h
-    face_data.h
+    src/
+        network_model.h
+        http_server.h
+        face_util.h
+        face_data.h
     main.cpp
 ```
